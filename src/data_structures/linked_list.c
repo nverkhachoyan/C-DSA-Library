@@ -15,6 +15,7 @@ struct NODE *linked_list(void *data) {
 	return head;
 }
 
+
 int insert_node(struct NODE *head, void *data) {
 	if (head == NULL) {
 		fprintf(stderr, "Linked List uninitialized.\n");
@@ -48,6 +49,16 @@ int print_list(struct NODE *head, printFunc print_node) {
 		head = head->next;
 	}
 
+	return 0;
+}
+
+int print_node(struct NODE *node, printFunc print_node) {
+	if (node == NULL) {
+		fprintf(stderr, "Node uninitialized.\n");
+		return 1;
+	}
+
+	print_node(node->data);
 	return 0;
 }
 

@@ -29,9 +29,7 @@ int main(int argc, char *argv[]) {
 
 	insert_node(head, new_pos);
 
-	print_list(head, print_pos);
-
-	printf("Hey mate.\n");
+	print_node(head, print_pos);
 
 	return 0;
 }
