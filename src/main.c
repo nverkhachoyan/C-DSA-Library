@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "./include/data_structures/linked_list.h"
+#include "data_structures/linked_list.h"
 
 struct POS {
 	int x;
