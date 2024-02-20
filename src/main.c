@@ -15,21 +15,29 @@ void print_pos(void *data) {
 }
 
 
-int main(int argc, char *argv[]) {
-
+struct POS *create_pos(int x, int y) {
 	struct POS *pos = (struct POS*)malloc(sizeof(struct POS));
-	pos->x = 50;
-	pos->y = 55;
 
+    if (pos == NULL) {
+		fprintf(stderr, "Allocation failure.\n");
+        return NULL;
+    }
+
+	pos->x = x;
+	pos->y = y;
+	return pos;
+}
+
+int main(int argc, char *argv[]) {
+	struct POS *pos = create_pos(55, 53);
 	struct NODE* head = linked_list(pos);
 
-	struct POS *new_pos = (struct POS*)malloc(sizeof(struct POS));
-	new_pos->x = 67;
-	new_pos->y = 93;
+	insert_node(head, create_pos(12, 43));
+	insert_node(head, create_pos(15, 98));
 
-	insert_node(head, new_pos);
+	// remove_node(&head, new_pos);
 
-	print_node(head, print_pos);
+	print_list(head, print_pos);
 
 	return 0;
 }
