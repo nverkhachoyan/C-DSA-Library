@@ -16,16 +16,16 @@ struct NODE *linked_list(void *data) {
 }
 
 
-int insert_node(struct NODE *head, void *data) {
+ERROR_CODE insert_node(struct NODE *head, void *data) {
 	if (head == NULL) {
 		fprintf(stderr, "Linked List uninitialized.\n");
-		return 1;
+		return NULL_DATA_ERROR;
 	}
 
 	struct NODE *node = (struct NODE*)malloc(sizeof(struct NODE));
 	if (node == NULL) {
 		fprintf(stderr, "Memory allocation failure.\n");
-		return -1;
+		return ALLOCATION_ERROR;
 	}
 	node->data = data;
 	node->next = NULL;
@@ -35,7 +35,7 @@ int insert_node(struct NODE *head, void *data) {
 	}
 
 	head->next = node; 
-	return 0;
+	return SUCCESS;
 }
 
 ERROR_CODE remove_node(struct NODE **head, void *data) {
@@ -68,10 +68,10 @@ ERROR_CODE remove_node(struct NODE **head, void *data) {
 	return SUCCESS;
 }
 
-int print_list(struct NODE *head, printFunc print_node) {
+ERROR_CODE print_list(struct NODE *head, printFunc print_node) {
 	if (head == NULL) {
 		fprintf(stderr, "Linked List uninitialized.\n");
-		return 1;
+		return NULL_DATA_ERROR;
 	}
 
 	while(head != NULL) {
@@ -79,17 +79,17 @@ int print_list(struct NODE *head, printFunc print_node) {
 		head = head->next;
 	}
 
-	return 0;
+	return SUCCESS;
 }
 
-int print_node(struct NODE *node, printFunc print_node) {
+ERROR_CODE print_node(struct NODE *node, printFunc print_node) {
 	if (node == NULL) {
 		fprintf(stderr, "Node uninitialized.\n");
-		return 1;
+		return NULL_DATA_ERROR;
 	}
 
 	print_node(node->data);
-	return 0;
+	return SUCCESS;
 }
 
 
