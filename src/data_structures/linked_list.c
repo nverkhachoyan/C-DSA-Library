@@ -3,38 +3,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct NODE *linked_list(void *data) {
-	struct NODE *head = (struct NODE*)malloc(sizeof(struct NODE));
-	if (head == NULL) {
+struct NODE *_create_node(void *data) {
+	struct NODE *new_node = (struct NODE*)malloc(sizeof(struct NODE));
+	if (new_node == NULL) {
 		fprintf(stderr, "Memory allocation failure.\n");
 		return NULL;
 	}
 
-	head->data = data;
-	head->next = NULL;
-	return head;
+	new_node->data = data;
+	new_node->next = NULL;
+	return new_node;
 }
 
-
-ERROR_CODE insert_node(struct NODE *head, void *data) {
-	if (head == NULL) {
-		fprintf(stderr, "Linked List uninitialized.\n");
-		return NULL_DATA_ERROR;
-	}
-
-	struct NODE *node = (struct NODE*)malloc(sizeof(struct NODE));
-	if (node == NULL) {
+ERROR_CODE insert_node(struct NODE **head, void *data) {
+	struct NODE *new_node = _create_node(data);
+	if (new_node == NULL) {
 		fprintf(stderr, "Memory allocation failure.\n");
 		return ALLOCATION_ERROR;
 	}
-	node->data = data;
-	node->next = NULL;
 
-	while (head->next != NULL) {
-		head = head->next;
+	if (*head == NULL) {
+		*head = new_node;
+		return SUCCESS;
 	}
 
-	head->next = node; 
+	struct NODE *curr_node = *head;
+	while (curr_node->next != NULL) {
+		curr_node = curr_node->next;
+	}
+
+	curr_node->next = new_node; 
 	return SUCCESS;
 }
 
@@ -68,27 +66,27 @@ ERROR_CODE remove_node(struct NODE **head, void *data) {
 	return SUCCESS;
 }
 
-ERROR_CODE print_list(struct NODE *head, printFunc print_node) {
+ERROR_CODE print_list(struct NODE *head, print_func print_data) {
 	if (head == NULL) {
 		fprintf(stderr, "Linked List uninitialized.\n");
 		return NULL_DATA_ERROR;
 	}
 
 	while(head != NULL) {
-		print_node(head->data);
+		print_data(head->data);
 		head = head->next;
 	}
 
 	return SUCCESS;
 }
 
-ERROR_CODE print_node(struct NODE *node, printFunc print_node) {
+ERROR_CODE print_node(struct NODE *node, print_func print_data) {
 	if (node == NULL) {
 		fprintf(stderr, "Node uninitialized.\n");
 		return NULL_DATA_ERROR;
 	}
 
-	print_node(node->data);
+	print_data(node->data);
 	return SUCCESS;
 }
 

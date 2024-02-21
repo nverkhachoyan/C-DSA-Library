@@ -13,11 +13,11 @@ struct NODE {
 	struct NODE *next;
 };
 
-typedef void (*printFunc)(void*);
-struct NODE *linked_list(void *data);
-ERROR_CODE insert_node(struct NODE *head, void *data);
+typedef void (*print_func)(void*);
+struct NODE *_create_node(void *data);
+ERROR_CODE insert_node(struct NODE **head, void *data);
 ERROR_CODE remove_node(struct NODE **head, void *data);
-ERROR_CODE print_node(struct NODE *node, printFunc print_node);
-ERROR_CODE print_list(struct NODE *head, printFunc print_node);
+ERROR_CODE print_node(struct NODE *node, print_func print_data);
+ERROR_CODE print_list(struct NODE *head, print_func print_data);
 
 #endif
